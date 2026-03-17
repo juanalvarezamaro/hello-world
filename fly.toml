@@ -1,10 +1,9 @@
-# fly.toml app configuration file generated for hello-world on 2026-03-17
+# fly.toml app configuration file generated for hello-world-3cants-app on 2026-03-17
 
-app = "hello-world-app"
-primary_region = "mad"
+app = "hello-world-3cants-app"
+primary_region = "fra"
 
 [build]
-  dockerfile = "Dockerfile"
 
 [http_service]
   internal_port = 8080
@@ -15,6 +14,5 @@ primary_region = "mad"
   processes = ["app"]
 
 [[vm]]
-  memory = "1gb"
-  cpu_kind = "shared"
-  cpus = 1
+  size = "shared-cpu-1x"
+  memory = 512

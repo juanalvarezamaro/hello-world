@@ -25,7 +25,7 @@ ENV MIX_ENV="prod"
 # install mix dependencies
 COPY mix.exs mix.lock ./
 RUN mix deps.get --only $MIX_ENV
-mkdir config
+RUN mkdir config
 
 # copy compile-time config files before compiling dependencies
 # so any relevant config change will trigger the dependencies
@@ -46,9 +46,7 @@ RUN mix assets.deploy
 RUN mix compile
 
 # Changes to config/runtime.exs don't require recompiling the code
-COPY config/runtime.exs config/
-
-COPY rel rel
+# COPY rel rel
 RUN mix release
 
 # start a new build stage so that the final image will only contain
