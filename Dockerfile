@@ -30,7 +30,7 @@ RUN mkdir config
 # copy compile-time config files before compiling dependencies
 # so any relevant config change will trigger the dependencies
 # to be re-compiled.
-COPY config/config.exs config/prod.exs config/
+COPY config/config.exs config/prod.exs config/runtime.exs config/
 RUN mix deps.compile
 
 COPY priv priv
@@ -45,8 +45,9 @@ RUN mix assets.deploy
 # Compile the release
 RUN mix compile
 
-# Changes to config/runtime.exs don't require recompiling the code
-# COPY rel rel
+# Copy rel overlays for bin/server
+COPY rel rel
+
 RUN mix release
 
 # start a new build stage so that the final image will only contain
